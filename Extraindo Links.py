@@ -52,9 +52,9 @@ for i in clubes:
         Times.append(i)
         Portal.append('Globo Esporte')
 
-data ={'Url':link,'Clube':Times,'Portal':Portal}
+data =pd.DataFrame({'Url':link,'Clube':Times,'Portal':Portal})
 
 client = MongoClient()
 db = client["Jornais"]
 Jornais = db["Noticias"]
-Jornais.insert_one({"index":"Sensex","data":data}))
+Jornais.insert_many(data.to_dict("records"))
