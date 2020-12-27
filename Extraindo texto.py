@@ -31,9 +31,9 @@ for i in data['Url']:
         Titulo.append(" ")
         Subtitulo.append(" ")
     #Extraindo a data
-    data = bs.find('div',{'class':'content__signature'})
-    if data is not None:
-        time=data.find('div',{'class':'content-publication-data'}).find('p',{'class':'content-publication-data__updated'}).find('time').text
+    datas = bs.find('div',{'class':'content__signature'})
+    if datas is not None:
+        time=datas.find('div',{'class':'content-publication-data'}).find('p',{'class':'content-publication-data__updated'}).find('time').text
         #print(time)
         Data.append(time)
     else:
@@ -55,8 +55,8 @@ for i in data['Url']:
     else:
         Texto.append(" ")
 
-
-data = pd.DataFrame({'Titulo':Titulo,'Subtitulo':Subtitulo,'Data':Data,'Texto':Texto})
+    # Time
+data = pd.DataFrame({'Titulo':Titulo,'Subtitulo':Subtitulo,'Data':Data,'Texto':Texto,'Time':data['Clube']})
 
 client = MongoClient()
 db = client["Jornais"]
