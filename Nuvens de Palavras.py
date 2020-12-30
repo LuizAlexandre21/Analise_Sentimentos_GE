@@ -7,10 +7,12 @@ import cv2
 import matplotlib.colors
 
 
+## WordCloud
+
 # Importando o banco de dados
 client = MongoClient()
-data = client['Jornais']
-data = data['Artigos_Limpos']
+db = client['Jornais']
+data = db['Artigos_Limpos']
 data = pd.DataFrame(list(data.find()))
 
 # Times
