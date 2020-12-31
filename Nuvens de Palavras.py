@@ -14,32 +14,48 @@ client = MongoClient()
 db = client['Jornais']
 data = db['Artigos_Limpos']
 data = pd.DataFrame(list(data.find()))
-
 # Times
-clubes = ['athletico-pr','atletico-go','bahia','botafogo','bragantino','corinthians','flamengo','fluminense','goias','gremio','internacional','palmeiras','ceara','fortaleza','sao paulo','sport','vasco','atletico-mg']
+clubes = ['athletico-pr','atletico-go','bahia','botafogo','bragantino','corinthians','flamengo','fluminense','goias','gremio','internacional','palmeiras','ceara','fortaleza','sao-paulo','sport','vasco','atletico-mg']
 for i in clubes:
     dados = data[data['Time']== i]
-
     texto = dados['Texto_limpo'].reset_index(drop=True)
     subtitulo = dados['Subtitulo_limpo'].reset_index(drop=True)
     titulo = dados['Titulo_limpo'].reset_index(drop=True)
-
-    texto = texto[0]+texto[1]+texto[2]+texto[3]+texto[4]+texto[5]+texto[6]+texto[7]
-    subtitulo = subtitulo[0]+subtitulo[1]+subtitulo[2]+subtitulo[3]+subtitulo[4]+subtitulo[5]+subtitulo[6]+subtitulo[7]
-    titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]+titulo[6]+titulo[7]
+    if i == 'palmeiras':
+        texto = texto[0]+texto[1]+texto[2]+texto[3]+texto[4]+texto[5]
+        subtitulo = subtitulo[0]+subtitulo[1]+subtitulo[2]+subtitulo[3]+subtitulo[4]+subtitulo[5]
+        titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]
+    elif i == 'sao-paulo':
+        texto = texto[0]+texto[1]+texto[2]+texto[3]+texto[4]+texto[5]
+        subtitulo = subtitulo[0]+subtitulo[1]+subtitulo[2]+subtitulo[3]+subtitulo[4]+subtitulo[5]
+        titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]
+    elif i == 'fortaleza':
+        texto = texto[0]+texto[1]+texto[2]+texto[3]+texto[4]+texto[5]+texto[6]
+        subtitulo = subtitulo[0]+subtitulo[1]+subtitulo[2]+subtitulo[3]+subtitulo[4]+subtitulo[5]+subtitulo[6]
+        titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]+titulo[6]
+    else:
+        texto = texto[0]+texto[1]+texto[2]+texto[3]+texto[4]+texto[5]+texto[6]+texto[7]
+        subtitulo = subtitulo[0]+subtitulo[1]+subtitulo[2]+subtitulo[3]+subtitulo[4]+subtitulo[5]+subtitulo[6]+subtitulo[7]
+        titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]+titulo[6]+titulo[7]
 
     # Subtitulo
     plt.figure(figsize=(10,5))
     fd = nltk.FreqDist(subtitulo)
     fd.plot(30,title = "Palavras x Frequência",cumulative=False)
-    # Titulo
+    plt.savefig(i+'freq_subtitulo')
+    plt.show()
+
     plt.figure(figsize=(10,5))
     fd = nltk.FreqDist(titulo)
     fd.plot(30,title = "Palavras x Frequência",cumulative=False)
-    # Texto
+    plt.savefig(i+'freq_titulo')
+    plt.show()
     plt.figure(figsize=(10,5))
     fd = nltk.FreqDist(texto)
     fd.plot(30,title = "Palavras x Frequência",cumulative=False)
+    plt.savefig(i+'freq_texto')
+    plt.show()
+
 
     text = " ".join(texto)
     title= " ".join(titulo)
@@ -83,7 +99,7 @@ for i in clubes:
     elif i in ['coritiba','palmeiras','goias']:
         cmap = cmap6
 
-    elif i in ['sao paulo']:
+    elif i in ['sao-paulo']:
         cmap = cmap7
 
     elif i in ['internacional']:
@@ -92,7 +108,7 @@ for i in clubes:
         cmap =cmap8
 
     # Importando figuras para a nuvem
-    imagem = cv2.imread(i+".jpg")
+    imagem = cv2.imread("/home/alexandre/Documentos/Ciência de Dados/Processamento de Linguagem/Projeto/Logos/Logos/"+i+".jpg")
     gray = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
     ret,mask = cv2.threshold(gray,250,255,cv2.THRESH_BINARY)
 

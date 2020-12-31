@@ -72,18 +72,30 @@ Texto_cl=[]
 Titulo_cl=[]
 Subtitulo_cl=[]
 
-for j in Texto_lw:
-    if j is not stopwords.words('portuguese'):
-        Texto_cl.append(j)
 
-for j in Titulo_lw:
-    if j is not stopwords.words('portuguese'):
-        Titulo_cl.append(j)
+for i in Texto_lw:
+    Texto_c=[]
+    for k in i:
+        if not k in stopwords.words('portuguese'):
+            if k.isalnum() is True:
+                Texto_c.append(k)
+    Texto_cl.append(Texto_c)
 
-for j in Subtitulo_lw:
-    if j is not stopwords.words('portuguese'):
-        Subtitulo_cl.append(j)
+for i in Titulo_lw:
+    Titulo_c=[]
+    for j in i:
+        if not j in stopwords.words('portuguese'):
+            if j.isalnum() is True:
+                Texto_c.append(j)
+    Titulo_cl.append(Texto_c)
 
+for i in Subtitulo_lw:
+    Subtitulo_c=[]
+    for j in i:
+        if not j in stopwords.words('portuguese'):
+            if j.isalnum() is True:
+                Texto_c.append(j)
+    Subtitulo_cl.append(Texto_c)
 
 
 #Criando um banco novo
