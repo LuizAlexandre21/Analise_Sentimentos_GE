@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors
 import pandas as pd
 import numpy as np
-
+import seaborn as sns
 
 ## Analise de Sentimentos
 
@@ -143,4 +143,9 @@ plt.scatter(vitorias,positivos_tex)
 plt.show()
 np.corrcoef(derrotas,negativos_tex)
 plt.scatter(derrotas,negativos_tex)
+plt.show()
+
+sns.pairplot(pd.DataFrame({'vitorias':vitorias,'positivos':positivos_tit}))
+sns.pairplot(pd.DataFrame({'vitorias':vitorias,'positivos':positivos_subtit}))
+sns.pairplot(pd.DataFrame({'vitorias':vitorias,'positivos':positivos_tex}))
 plt.show()

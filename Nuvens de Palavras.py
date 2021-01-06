@@ -17,6 +17,7 @@ data = pd.DataFrame(list(data.find()))
 # Times
 clubes = ['athletico-pr','atletico-go','bahia','botafogo','bragantino','corinthians','flamengo','fluminense','goias','gremio','internacional','palmeiras','ceara','fortaleza','sao-paulo','sport','vasco','atletico-mg']
 for i in clubes:
+
     dados = data[data['Time']== i]
     texto = dados['Texto_limpo'].reset_index(drop=True)
     subtitulo = dados['Subtitulo_limpo'].reset_index(drop=True)
@@ -39,6 +40,7 @@ for i in clubes:
         titulo = titulo[0]+titulo[1]+titulo[2]+titulo[3]+titulo[4]+titulo[5]+titulo[6]+titulo[7]
 
     # Subtitulo
+
     plt.figure(figsize=(10,5))
     fd = nltk.FreqDist(subtitulo)
     fd.plot(30,title = "Palavras x Frequência",cumulative=False)
